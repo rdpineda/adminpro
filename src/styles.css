@@ -1,3 +1,11 @@
 #themecolors li {
     cursor: pointer;
 }
+
+.menu:hover {
+    background: #ccc;
+}
+
+.pointer {
+    cursor: pointer;
+}
