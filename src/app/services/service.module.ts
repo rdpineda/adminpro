@@ -4,7 +4,9 @@ import { CommonModule } from '@angular/common';
 
 
 
-import { SettingsService, SharedService, SidebarService, UsuarioService, LoginGuardsGuard } from './service.index';
+import { SettingsService, SharedService,
+  SidebarService, UsuarioService,
+  LoginGuardsGuard, SubirArhivoService } from './service.index';
 
 
 
@@ -20,7 +22,8 @@ import { SettingsService, SharedService, SidebarService, UsuarioService, LoginGu
     SharedService,
     SidebarService,
     UsuarioService,
-    LoginGuardsGuard
+    LoginGuardsGuard,
+    SubirArhivoService
   ],
   declarations: [],
  
