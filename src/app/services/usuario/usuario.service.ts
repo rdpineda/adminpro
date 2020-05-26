@@ -142,7 +142,6 @@ cambiarImagen( archivo: File, id: string ){
 cargarUsuarios( desde: number = 0){
 
   let url = URL_SERVICIOS + '/usuario?desde=' + desde;
-  console.log(url);
   return this.http.get( url );
   
 
