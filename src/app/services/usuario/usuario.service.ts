@@ -3,7 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from 'src/app/config/config';
 import { Usuario } from 'src/app/models/usuario.model';
 import { Router } from '@angular/router';
+
+import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
+import { throwError } from 'rxjs';
+
 
 import Swal from 'sweetalert2';
 import { SubirArhivoService } from '../subirArchivo/subir-arhivo.service';
@@ -16,6 +22,7 @@ export class UsuarioService {
 
   usuario: Usuario;
   token: string;
+  menu: any[] = [];
 
   constructor( public http: HttpClient,
                public _router: Router,
@@ -23,13 +30,15 @@ export class UsuarioService {
     this.cargarStorage();
   }
 
-  guardarStorage(id: string, token: string, usuario: Usuario){
+  guardarStorage(id: string, token: string, usuario: Usuario, menu: any){
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
     localStorage.setItem('usuario', JSON.stringify(usuario));
+    localStorage.setItem('menu', JSON.stringify(menu));
 
     this.usuario = usuario;
     this.token = token;
+    this.menu = menu;
 
   }
 
@@ -41,9 +50,11 @@ export class UsuarioService {
     if ( localStorage.getItem('token')){
           this.token = localStorage.getItem('token');
           this.usuario =  JSON.parse(localStorage.getItem('usuario'));
+          this.menu =  JSON.parse(localStorage.getItem('menu'));
     } else {
       this.token = '';
       this.usuario = null;
+      this.menu = [];
     }
   }
 
@@ -60,10 +71,19 @@ export class UsuarioService {
     return this.http.post( url, usuario )
               .map( (resp: any) =>{
 
-                this.guardarStorage( resp.id, resp.token, resp.usuario);
+                this.guardarStorage( resp.id, resp.token, resp.usuario, resp.menu );
 
 
                 return true;
+              })
+              .catch( err =>{
+                // tslint:disable-next-line: deprecation
+                Swal.fire({
+                  title: 'Error en el login',
+                  text: err.error.mensaje,
+                  icon: 'error'
+                });
+                return Observable.throwError( err );
               });
 
 
@@ -76,6 +96,7 @@ export class UsuarioService {
 
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
+    localStorage.removeItem('menu');
 
     this._router.navigate(['/login']);
 
@@ -94,7 +115,17 @@ crearUsuario( usuario: Usuario){
 
         return resp.usuario;
 
+      })
+      .catch( err =>{
+        // tslint:disable-next-line: deprecation
+        Swal.fire({
+          title: err.error.mensaje,
+          text: err.error.errors.message,
+          icon: 'error'
+        });
+        return Observable.throwError( err );
       });
+
 }
 
 actualizarUsuario( usuario: Usuario ){
@@ -107,7 +138,7 @@ actualizarUsuario( usuario: Usuario ){
 
         if ( usuario._id === this.usuario._id) {
           let usuarioDB: Usuario = resp.usuario;
-          this.guardarStorage( usuarioDB._id, this.token, usuarioDB);
+          this.guardarStorage( usuarioDB._id, this.token, usuarioDB,  this.menu);
         }
         Swal.fire({
           text: 'Usuario Actualizado',
@@ -130,7 +161,7 @@ cambiarImagen( archivo: File, id: string ){
         text: 'Imagen Actualizada',
         icon: 'success'
       });
-      this.guardarStorage(id, this.token, this.usuario);
+      this.guardarStorage(id, this.token, this.usuario, this.menu);
 
 
     })
