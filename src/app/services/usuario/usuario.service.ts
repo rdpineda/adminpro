@@ -30,6 +30,32 @@ export class UsuarioService {
     this.cargarStorage();
   }
 
+  renuevaToken(){
+    let url = URL_SERVICIOS + '/login/renuevatoken';
+    url += '?token=' + this.token;
+
+    return this.http.get( url )
+        .map( (resp: any) =>{
+
+          this.token = resp.token;
+          localStorage.setItem( 'token', this.token );
+
+          return true;
+
+        })
+        .catch( err => {
+          this._router.navigate(['/login']);
+          // tslint:disable-next-line: deprecation
+          Swal.fire({
+            title: 'No se pudo renovar el token',
+            text: 'No fue posible renovar el token',
+            icon: 'error'
+          });
+          return Observable.throwError( err );
+        });
+  }
+
+
   guardarStorage(id: string, token: string, usuario: Usuario, menu: any){
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
@@ -147,6 +173,14 @@ actualizarUsuario( usuario: Usuario ){
 
         return true;
 
+      })
+      .catch( err =>{
+        Swal.fire({
+          title: err.error.mensaje,
+          text: err.error.errors.message,
+          icon: 'error'
+        });
+        return Observable.throwError( err );
       });
 
 }
