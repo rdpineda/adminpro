@@ -14,7 +14,7 @@ export class AdminGuard implements CanActivate {
 
   canActivate() {
 
-    if ( this._usuarioService.usuario.role === 'ADMIN_ROLE' ){
+    if ( this._usuarioService.usuario.idRol === '37188fd7-f43b-4874-bd1a-54c5cce8afee' ){
       return true;
     } else {
       this._usuarioService.logout();

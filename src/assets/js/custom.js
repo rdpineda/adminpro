@@ -46,12 +46,14 @@ function ini_plugins() {
         // ==============================================================     
         $(".sidebartoggler").on('click', function() {
             if ($("body").hasClass("mini-sidebar")) {
+                console.log('hola sidebar')
                 $("body").trigger("resize");
                 $("body").removeClass("mini-sidebar");
                 $('.navbar-brand span').show();
 
             } else {
-                $("body").trigger("resize");
+                console.log('hola deneuvo')
+                    /*  $("body").trigger("resize"); */
                 $("body").addClass("mini-sidebar");
                 $('.navbar-brand span').hide();
 

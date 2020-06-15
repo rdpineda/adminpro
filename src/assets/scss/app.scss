@@ -1,11 +1,3 @@
-/*
-Template Name: Admin Pro Admin
-Author: Wrappixel
-Email: niravjoshi87@gmail.com
-File: scss
-*/
-
-
 /**
  * Table Of Content
  *
@@ -27,7 +19,6 @@ Global Styles
 
 * {
     outline: none;
-    
 }
 
 body {
@@ -37,7 +28,6 @@ body {
     overflow-x: hidden;
     color: $bodytext;
     font-weight: 300;
-    
 }
 
 html {
@@ -45,7 +35,7 @@ html {
     min-height: 100%;
     background: $white;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale; 
+    -moz-osx-font-smoothing: grayscale;
 }
 
 a:hover,
@@ -360,9 +350,11 @@ Opacity
 .op-5 {
     opacity: 0.5;
 }
+
 .op-3 {
     opacity: 0.3;
 }
+
 
 /*******************
 font weight
@@ -763,7 +755,7 @@ Labels
 
 .badge-warning {
     background-color: $warning;
-    color:$white;
+    color: $white;
 }
 
 .badge-danger {
@@ -851,7 +843,11 @@ Layouts
 
 
 /*******************/
+
+
 /*single column*/
+
+
 /*******************/
 
 .single-column {

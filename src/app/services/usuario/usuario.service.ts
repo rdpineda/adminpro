@@ -88,7 +88,7 @@ export class UsuarioService {
   login( usuario: Usuario, recordar: boolean = false){
 
     if ( recordar ){
-      localStorage.setItem('email', usuario.email);
+      localStorage.setItem('email', usuario.userName);
     }else{
       localStorage.removeItem('email');
     }
@@ -143,11 +143,9 @@ crearUsuario( usuario: Usuario){
 
       })
       .catch( err =>{
-        // tslint:disable-next-line: deprecation
         Swal.fire({
-          title: err.error.mensaje,
-          text: err.error.errors.message,
-          icon: 'error'
+          text: 'El correo ya esta en uso',
+          icon: 'warning'
         });
         return Observable.throwError( err );
       });
@@ -156,15 +154,15 @@ crearUsuario( usuario: Usuario){
 
 actualizarUsuario( usuario: Usuario ){
 
-  let url = URL_SERVICIOS + '/usuario/' + usuario._id;
+  let url = URL_SERVICIOS + '/usuario/' + usuario.id;
   url += '?token=' + this.token;
 
   return this.http.put( url, usuario)
       .map( (resp: any) =>{
 
-        if ( usuario._id === this.usuario._id) {
-          let usuarioDB: Usuario = resp.usuario;
-          this.guardarStorage( usuarioDB._id, this.token, usuarioDB,  this.menu);
+        if ( usuario.id === this.usuario.id) {
+          const usuarioDB: Usuario = resp.usuario;
+          this.guardarStorage( usuarioDB.id, this.token, usuarioDB,  this.menu);
         }
         Swal.fire({
           text: 'Usuario Actualizado',

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../services/service.index';
+import { CompanyService } from '../services/service.index';
 import { Usuario } from '../models/usuario.model';
+import { Company } from '../models/company.model';
 
 
 import Swal from 'sweetalert2';
@@ -19,11 +21,26 @@ declare function ini_plugins();
 export class RegisterComponent implements OnInit {
 
   forma: FormGroup;
-  
+  starDemoDay: Date = new Date();
+  demoDay = 50;
+  createUser: any;
+  updateUser: any;
+  isActive = true;
+  idTenant = '51c8b7bb-11fd-4203-af7a-98ae9ca27475';
+  idRol = '37188fd7-f43b-4874-bd1a-54c5cce8afee';
 
+
+  
+  
   // tslint:disable-next-line: variable-name
   constructor( public _usuarioService: UsuarioService,
-               public _router: Router ) { }
+               public _companyService: CompanyService,
+               public _router: Router,
+               private fb: FormBuilder ) {
+
+      this.crearFormulario();
+               }
+
 
   sonIguales( campo1: string, campo2: string){
     return ( group: FormGroup ) =>{
@@ -45,28 +62,42 @@ export class RegisterComponent implements OnInit {
 
     ini_plugins();
 
-    this.forma = new FormGroup({
-      nombre: new FormControl(null, Validators.required),
-      correo: new FormControl(null, [Validators.required, Validators.email]),
-      password1: new FormControl(null, Validators.required),
-      password2: new FormControl(null, Validators.required),
-      condiciones: new FormControl(false)
-    }, { validators: this.sonIguales( 'password1', 'password2') });
-
-    this.forma.setValue({
-      nombre: 'Test1',
-      correo: 'tests@gmail.com',
-      password1: '123456',
-      password2: '1234567',
-      condiciones: true
-
-    });
   }
+
+  get nombreNoValido(){return this.forma.get('nombre').invalid && this.forma.get('nombre').touched }
+  get empresaNoValido(){return this.forma.get('empresa').invalid && this.forma.get('empresa').touched }
+  get correoNoValido(){return this.forma.get('correo').invalid && this.forma.get('correo').touched }
+  get telefonoNoValido(){return this.forma.get('telefono').invalid && this.forma.get('telefono').touched }
+  get password1NoValido(){return this.forma.get('password1').invalid && this.forma.get('password1').touched }
+  get password2NoValido(){return this.forma.get('password2').invalid && this.forma.get('password2').touched }
+
+
+  crearFormulario(){
+    this.forma = this.fb.group({
+      nombre       : ['', Validators.required],
+      empresa      : ['', Validators.required],
+      correo       : ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      telefono     : ['', Validators.required],
+      password1    : ['', Validators.required],
+      password2    : [''],
+      condiciones  : ['']
+    }, { validators: this.sonIguales( 'password1', 'password2') });
+  }
+
 
   registrarUsuario() {
 
     if (this.forma.invalid){
-      return;
+
+      return Object.values (this.forma.controls).forEach( control =>{
+  
+        if (control instanceof FormGroup) {
+          Object.values (control.controls).forEach( control => control.markAsTouched());
+  
+        } else{
+          control.markAsTouched();
+        }
+      });
     }
 
     if ( !this.forma.value.condiciones){
@@ -78,16 +109,35 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
+
+
     const usuario = new Usuario(
         this.forma.value.nombre,
         this.forma.value.correo,
-        this.forma.value.password1
+        this.forma.value.password1,
+        this.forma.value.telefono,
+        this.idRol,
+        this.isActive
     );
 
+
     this._usuarioService.crearUsuario( usuario )
-          .subscribe( resp =>{
+          .subscribe( resp => {
             this._router.navigate(['/login']);
+
+            const company = new Company(
+              this.forma.value.empresa,
+              this.starDemoDay,
+              this.demoDay,
+              this.createUser = resp.id,
+              this.createUser = resp.id,
+              this.isActive,
+              this.idTenant
+          );
+            this._companyService.crearCompany( company )
+                .subscribe( resp1 => {});
           });
+
 
   }
 

@@ -74,7 +74,7 @@ export class UsuariosComponent implements OnInit {
 
   borrarUsuario( usuario: Usuario ){
 
-    if ( usuario._id === this._usuarioService.usuario._id ) {
+    if ( usuario.id === this._usuarioService.usuario.id ) {
 
       Swal.fire({
         title: 'Importante',
@@ -85,7 +85,7 @@ export class UsuariosComponent implements OnInit {
     }
     Swal.fire({
       title: '¿Esta seguro?',
-      text: 'Desea Eliminar a ' + usuario.nombre,
+      text: 'Desea Eliminar a ' + usuario.name,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -94,7 +94,7 @@ export class UsuariosComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.value) {
-        this._usuarioService.borrarUsuario( usuario._id)
+        this._usuarioService.borrarUsuario( usuario.id)
             .subscribe( resp =>{
               this.cargarUsuarios();
             });

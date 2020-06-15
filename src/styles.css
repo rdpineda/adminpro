@@ -1,9 +1,13 @@
+body {
+    background-color: #e1e1e1;
+}
+
 #themecolors li {
     cursor: pointer;
 }
 
 .menu:hover {
-    background: #ccc;
+    background: #eeeeee;
 }
 
 .pointer {
@@ -24,6 +28,10 @@
 
 .w70 {
     width: 70px;
+}
+
+.w100 {
+    width: 100px;
 }
 
 .oculto {

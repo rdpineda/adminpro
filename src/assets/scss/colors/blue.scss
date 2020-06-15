@@ -1,17 +1,10 @@
-/*
-Template Name: Admin Pro Admin
-Author: Wrappixel
-Email: niravjoshi87@gmail.com
-File: scss
-*/
-
 @import '../variable';
 $themecolor: #1976d2;
 $themecolor-dark: #028ee1;
 $topbar: #1976d2;
 $topbar-alt: #ffffff;
 $themecolor-alt: #26c6da;
-$sidebar-icons: #a6b7bf; 
+$sidebar-icons: #a6b7bf;
 
 /*******************
 /*Top bar
@@ -19,22 +12,19 @@ $sidebar-icons: #a6b7bf;
 
 .topbar {
     background: $topbar;
-    .navbar-header{
+    .navbar-header {
         background: $topbar-alt;
     }
-    
-    
-    .top-navbar .navbar-header .navbar-brand .light-logo{
+    .top-navbar .navbar-header .navbar-brand .light-logo {
         display: none;
-        color:rgba(255, 255, 255, 0.8);
+        color: rgba(255, 255, 255, 0.8);
     }
-    .navbar-light .navbar-nav .nav-item > {
+    .navbar-light .navbar-nav .nav-item> {
         a.nav-link {
-           
             color: $white!important;
             &:hover,
             &:focus {
-                 color: rgba(255, 255, 255, 0.8)!important;
+                color: rgba(255, 255, 255, 0.8)!important;
             }
         }
     }
@@ -44,9 +34,11 @@ $sidebar-icons: #a6b7bf;
 /*******************
 /*General Elements
 *******************/
-.lstick{
+
+.lstick {
     background: $themecolor;
 }
+
 a.link {
     &:hover,
     &:focus {
@@ -58,12 +50,12 @@ a.link {
     background-color: $themecolor !important;
 }
 
-.pagination > .active > a,
-.pagination > .active > span,
-.pagination > .active > a:hover,
-.pagination > .active > span:hover,
-.pagination > .active > a:focus,
-.pagination > .active > span:focus {
+.pagination>.active>a,
+.pagination>.active>span,
+.pagination>.active>a:hover,
+.pagination>.active>span:hover,
+.pagination>.active>a:focus,
+.pagination>.active>span:focus {
     background-color: $themecolor;
     border-color: $themecolor;
 }
@@ -82,9 +74,11 @@ a.link {
         }
     }
 }
-.text-themecolor{
-    color:$themecolor!important;
+
+.text-themecolor {
+    color: $themecolor!important;
 }
+
 .profile-tab,
 .customtab {
     li {
@@ -126,28 +120,28 @@ a.link {
 /*sidebar navigation
 *******************/
 
-.label-themecolor{
-    background:$themecolor; 
+.label-themecolor {
+    background: $themecolor;
 }
 
 .sidebar-nav>ul>li.active>a {
     color: $themecolor;
     border-color: $themecolor;
     i {
-       color: $themecolor; 
+        color: $themecolor;
     }
 }
 
 .sidebar-nav ul li a {
     &.active,
     &:hover {
-      color: $themecolor;
-      i {
         color: $themecolor;
-      }    
+        i {
+            color: $themecolor;
+        }
     }
 }
 
-.sidebar-nav>ul>li>a i{
-    color:$sidebar-icons;
+.sidebar-nav>ul>li>a i {
+    color: $sidebar-icons;
 }

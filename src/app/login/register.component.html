@@ -1,29 +1,51 @@
 <!-- Main wrapper - style you can find in pages.scss -->
 <!-- ============================================================== -->
-<section id="wrapper" style="background-image:url(assets/images/background/login-register.jpg);">
+<section id="wrapper" class="register" style="background-color: #eeeeee;">
     <div class="login-box card">
         <div class="card-body">
-            <form ngNativeValidate [formGroup]="forma" (ngSubmit)="registrarUsuario()" class="form-horizontal form-material" id="loginform" action="index.html">
-                <a href="javascript:void(0)" class="text-center db"><img src="assets/images/logo-icon.png" alt="Home" /><br/><img src="assets/images/logo-text.png" alt="Home" /></a>
-                <h3 class="box-title m-t-40 m-b-0">Registrate ahora</h3><small>Crea una Cuenta y disfruta</small>
+            <form autocomplete="off" [formGroup]="forma" (ngSubmit)="registrarUsuario()" id="loginform" action="index.html">
+                <a href="javascript:void(0)" class="text-center db"><img src="assets/images/logoletra2.png" class="w150" alt="Home" /></a>
+                <!-- <a><img src="assets/images/logo1.png" class="w100" alt="Home" /></a> -->
+                <h3 class="box-title m-t-40 m-b-0 text-center">Registrate ahora ¡ GRATIS !</h3>
+
                 <div class="form-group m-t-20">
                     <div class="col-xs-12">
-                        <input formControlName="nombre" name="nombre" class="form-control" type="text" required placeholder="Nombre">
+                        <!-- <label class="col-5 col-form-label col-form-label-sm">Tú Nombre:</label> -->
+                        <input class="form-control form-control-sm" type="text" placeholder="Tú Nombre" name="nombre" formControlName="nombre" [class.is-invalid]="nombreNoValido">
+                        <small *ngIf="nombreNoValido" class="text-danger">campo Obligatorio</small>
+                    </div>
+                </div>
+
+
+                <div class="form-group m-t-20">
+                    <div class="col-xs-12">
+                        <input class="form-control form-control-sm" formControlName="empresa" name="empresa" type="text" placeholder="Nombre de la empresa" [class.is-invalid]="empresaNoValido">
+                        <small *ngIf="empresaNoValido" class="text-danger">campo Obligatorio</small>
+                    </div>
+                </div>
+
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        <input formControlName="correo" name="correo" class="form-control form-control-sm" type="text" placeholder="Correo Electrónico" [class.is-invalid]="correoNoValido">
+                        <small *ngIf="correoNoValido" class="text-danger">campo Obligatorio</small>
                     </div>
                 </div>
                 <div class="form-group ">
                     <div class="col-xs-12">
-                        <input formControlName="correo" name="correo" class="form-control" type="text" required placeholder="Email">
+                        <input formControlName="telefono" name="telefono" class="form-control form-control-sm" type="number" placeholder="Celular de Contacto" [class.is-invalid]="telefonoNoValido">
+                        <small *ngIf="telefonoNoValido" class="text-danger">campo Obligatorio</small>
                     </div>
                 </div>
                 <div class="form-group ">
                     <div class="col-xs-12">
-                        <input formControlName="password1" name="password1" class="form-control" type="password" required placeholder="Contraseña">
+                        <input formControlName="password1" name="password1" class="form-control form-control-sm" type="password" placeholder="Contraseña" [class.is-invalid]="password1NoValido">
+                        <small *ngIf="password1NoValido" class="text-danger">campo Obligatorio</small>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-xs-12">
-                        <input formControlName="password2" name="password2" class="form-control" type="password" required placeholder="Confirma Contraseña">
+                        <input formControlName="password2" name="password2" class="form-control form-control-sm" type="password" placeholder="Confirma Contraseña" [class.is-invalid]="password2NoValido">
+                        <small *ngIf="password2NoValido" class="text-danger">campo Obligatorio</small>
                     </div>
                 </div>
 
@@ -37,14 +59,14 @@
                 <div class="form-group row">
                     <div class="col-md-12">
                         <div class="checkbox checkbox-primary p-t-0">
-                            <input formControlName="condiciones" name="condiciones" id="checkbox-signup" type="checkbox">
-                            <label for="checkbox-signup"> Estoy de acuerdo con los<a href="#">Terminos</a></label>
+                            <input class="form-control form-control-sm" formControlName="condiciones" name="condiciones" id="checkbox-signup" type="checkbox">
+                            <label class="col-form-label col-form-label-sm" for="checkbox-signup">Estoy de acuerdo con los <a href="#">Terminos</a></label>
                         </div>
                     </div>
                 </div>
                 <div class="form-group text-center m-t-20">
                     <div class="col-xs-12">
-                        <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Registrarme</button>
+                        <button class="btn btn-sm btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Crear una Cuenta</button>
                     </div>
                 </div>
                 <div class="form-group m-b-0">

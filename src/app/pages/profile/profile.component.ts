@@ -25,8 +25,8 @@ export class ProfileComponent implements OnInit {
 
   guardar(usuario: Usuario ){
 
-    this.usuario.nombre = usuario.nombre;
-    this.usuario.email = usuario.email;
+    this.usuario.name = usuario.name;
+    this.usuario.userName = usuario.userName;
 
     this._usuarioService.actualizarUsuario( this.usuario)
         .subscribe();
@@ -60,7 +60,7 @@ export class ProfileComponent implements OnInit {
   }
 
   cambiarImagen(){
-    this._usuarioService.cambiarImagen( this.imagenSubir, this.usuario._id);
+    this._usuarioService.cambiarImagen( this.imagenSubir, this.usuario.id);
   }
 
 }
